@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect, useRef } from "react";
+import { RiTodoFill } from "react-icons/ri";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [message, setMessage] = useState();
+
+  useEffect(() => {
+    if (!message) {
+      alert("Messagem Apagada com sucesso!!");
+    }
+  }, [message]);
+
+  const handleNewMenssager = () => {
+    const newMessage = "Ola Dev: Thiago Morgado";
+
+    setMessage(newMessage);
+  };
+
+  const handleCleanMessager = () => {
+    setMessage("");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className=" bg-slate-500 flex flex-1 w-screen h-screen flex-col items-center ">
+      <div className=" w-full py-10">
+        <h1 className=" p-10 text-center text-white font-bold uppercase  flex justify-center items-center gap-5">
+          ToDoList
+          <RiTodoFill size={24} />
+        </h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+      <div className="flex flex-col">
+        <h1>{message}</h1>
+        <button onClick={handleNewMenssager}>Clicar aqui</button>
+        <button onClick={handleCleanMessager}>Limpar menssage</button>
+      </div>
+    </div>
+  );
+}
