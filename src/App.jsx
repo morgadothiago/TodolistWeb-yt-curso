@@ -8,7 +8,7 @@ export default function App() {
     {
       id: 1,
       title: "Estudar React",
-      completed: true,
+      completed: false,
     },
     {
       id: 2,
@@ -22,8 +22,21 @@ export default function App() {
     },
   ]);
 
-  function onChangeStageTask() {
-    console.log("Appagando o item de id:");
+  function onTaskClick(taskId) {
+    // Percorre o array de tarefas
+    const newTasks = task.map((task) => {
+      // Verifica se o id da tarefa atual é igual ao id recebido
+      if (task.id === taskId) {
+        // Retorna a tarefa com o campo 'completed' invertido (true -> false, false -> true)
+        return { ...task, completed: !task.completed };
+      }
+
+      // Retorna a tarefa sem alterações
+      return task;
+    });
+
+    // Atualiza o estado com a nova lista de tarefas
+    setTask(newTasks);
   }
 
   return (
@@ -31,7 +44,7 @@ export default function App() {
       <div className="w-[500px] flex flex-col">
         <Header />
         {/* <AddTask /> */}
-        <Task key={task.id} task={task} onClick={onChangeStageTask} />
+        <Task task={task} onTaskClick={onTaskClick} />
       </div>
     </div>
   );
